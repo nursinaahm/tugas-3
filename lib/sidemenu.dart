@@ -12,11 +12,11 @@ class Sidemenu extends StatelessWidget {
       child: ListView(
         children: [
           const DrawerHeader(
-            child: Text('Sidemenu'),
+            child: Text('Menu'),
           ),
           ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
+            leading: const Icon(Icons.person),
+            title: const Text('Data Pribadi'),
             onTap: () {
               // Navigasi ke halaman Home
               Navigator.push(
@@ -28,8 +28,8 @@ class Sidemenu extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.info),
-            title: const Text('Tambah Data'),
+            leading: const Icon(Icons.add),
+            title: const Text('Tambah Data Pribadi'),
             onTap: () {
               // Navigasi ke halaman Tambah Data
               Navigator.push(

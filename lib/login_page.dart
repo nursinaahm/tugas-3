@@ -62,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
+        backgroundColor: Colors.teal[200],
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -73,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.blue, // Warna tombol
+                primary: Colors.teal[900], // Warna tombol
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               ),
               child: const Text(

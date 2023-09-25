@@ -26,7 +26,7 @@ class PersonalData {
       'name': name,
       'address': address,
       'phoneNumber': phoneNumber,
-      'NIM': nim,
+      'nim': nim,
     };
 
     dataList.add(jsonEncode(newData));

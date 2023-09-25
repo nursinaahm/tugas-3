@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tugas3/sidemenu.dart';
-import 'package:intl/intl.dart';
-import 'add_form.dart';
-import 'login_page.dart'; 
-import 'PersonalData.dart';
-
+import 'package:tugas3/add_form.dart';
+import 'package:tugas3/PersonalData.dart'; 
+import 'package:tugas3/login_page.dart';
 void main() {
   runApp(MyApp());
 }
@@ -13,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/login', // Atur rute awal ke halaman login
+      initialRoute: '/login', 
       routes: {
         '/login': (context) => LoginPage(),
         '/home': (context) => HomeScreen(),
@@ -23,16 +21,15 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key); 
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  PersonalData personaldata = PersonalData(); 
-  List data = []; 
+  PersonalData personalData = PersonalData();
+  List data = [];
   bool isLoading = true;
 
   @override
@@ -47,10 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
       isLoading = true;
     });
 
-    List getData = await personaldata.getData();
+    List getData = await personalData.getData();
     setState(() {
-      data = getData.reversed
-          .toList(); 
+      data = getData.reversed.toList();
       isLoading = false;
     });
   }
@@ -59,7 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Data Pribadi'), 
+        backgroundColor: Colors.teal[200],
       ),
       drawer: const Sidemenu(),
       body: isLoading
@@ -73,33 +70,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     ListTile(
                       contentPadding: EdgeInsets.all(10),
-                      leading: data[item]['type'] == 'In'
-                          ? Column(
-                              children: [
-                                Icon(Icons.arrow_downward),
-                                Text('In')
-                              ],
-                            )
-                          : Column(
-                              children: [
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Icon(Icons.arrow_upward),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text('Out')
-                              ],
-                            ),
+                      // Ubah bagian berikut sesuai dengan konteks data pribadi
+                      leading: Icon(Icons.person),
                       title: Text(
-                        '${data[item]['description']}',
+                        'Nama: ${data[item]['name']}',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       subtitle: Text(
-                        'Date: ${data[item]['date']} \n'
-                        'Amount: Rp. ${NumberFormat('###,###').format(int.parse(data[item]['amount']))}',
+                        'Alamat: ${data[item]['address']} \n'
+                        'NIM: ${data[item]['nim']}',
                       ),
                     ),
                   ],

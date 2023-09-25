@@ -1,64 +1,113 @@
 import 'package:flutter/material.dart';
-import 'package:tugas3/main.dart';
-import 'package:tugas3/PersonalData.dart';
 import 'package:intl/intl.dart';
+import 'PersonalData.dart';
 
 class AddForm extends StatefulWidget {
+  const AddForm({Key? key}) : super(key: key);
+
   @override
   _AddFormState createState() => _AddFormState();
 }
 
 class _AddFormState extends State<AddForm> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _nimController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController name = TextEditingController();
+  TextEditingController address = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
+  TextEditingController nim = TextEditingController();
 
-  final PersonalData _personalData = PersonalData();
+  DateTime selectedDate = DateTime.now();
 
-  void _savePersonalData() {
-    _personalData.saveData(
-      _nameController.text,
-      _addressController.text,
-      _phoneNumberController.text,
-      _nimController.text,
-    );
-
-    // Tambahkan logika lain jika diperlukan, seperti menampilkan pesan sukses.
-  }
+  PersonalData personalData = PersonalData();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Input Data Pribadi'),
+        backgroundColor: Colors.teal[200],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextFormField(
-              controller: _nameController,
-              decoration: InputDecoration(labelText: 'Nama'),
-            ),
-            TextFormField(
-              controller: _addressController,
-              decoration: InputDecoration(labelText: 'Alamat'),
-            ),
-            TextFormField(
-              controller: _phoneNumberController,
-              decoration: InputDecoration(labelText: 'Nomor Telepon'),
-            ),
-            TextFormField(
-              controller: _nimController,
-              decoration: InputDecoration(labelText: 'NIM'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _savePersonalData,
-              child: Text('Simpan Data'),
-            ),
-          ],
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Nama'),
+                controller: name,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukkan nama Anda';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Alamat'),
+                controller: address,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukkan alamat Anda';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'Nomor Telepon'),
+                controller: phoneNumber,
+                keyboardType: TextInputType.phone,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukkan nomor telepon Anda';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'NIM'), // Mengubah label
+                controller: nim, // Mengubah controller
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Masukkan NIM Anda'; // Mengubah pesan validasi
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.teal[900], // Warna tombol
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                ),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    personalData.saveData(
+                      name.text,
+                      address.text,
+                      phoneNumber.text,
+                      nim.text,
+                    );
+
+                    Navigator.pop(context);
+                  }
+                },
+                child: Text('Simpan Data'),
+              )
+            ],
+          ),
         ),
       ),
     );

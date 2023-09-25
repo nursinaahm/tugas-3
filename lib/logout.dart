@@ -8,6 +8,7 @@ class LogoutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Logout Page'),
+        backgroundColor: Colors.teal[200],
       ),
       body: Center(
         child: Column(
@@ -19,6 +20,10 @@ class LogoutPage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.teal[900], // Warna tombol
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              ),
               onPressed: () {
                 _logout(context);
               },
